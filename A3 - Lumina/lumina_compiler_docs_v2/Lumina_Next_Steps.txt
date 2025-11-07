@@ -1,0 +1,63 @@
+Ideias de Próximos Passos para a Linguagem Lumina
+=================================================
+
+1. **Funções e Escopo Local**
+   - Permitir declaração de funções usando `define func <nome>(params): <tipo>`.
+   - Implementar escopo de variáveis local a funções e blocos (tabela de símbolos aninhada).
+   - Permitir retorno de valores com `return`.
+
+2. **Inferência de Tipos**
+   - Eliminar necessidade de declarar tipos explicitamente quando possível.
+     Exemplo: `define x = 42` → tipo inferido como `int`.
+
+3. **Tipos Compostos**
+   - Adicionar suporte a `list`, `map`, `tuple`.
+   - Exemplo: `define thoughts: list<int> = [1, 2, 3]`.
+
+4. **Operadores Lógicos Avançados**
+   - Implementar operadores `and`, `or`, `not` com precedência correta.
+   - Adicionar operadores de incremento (`++`, `--`) e concatenação explícita (`++` para strings).
+
+5. **Funções Nativas (Built-ins)**
+   - `len()`, `type()`, `toText()`, `toInt()`, `toFloat()`.
+   - Fornecer biblioteca padrão básica para manipulação de texto e números.
+
+6. **Suporte a Estruturas de Dados**
+   - Arrays e listas indexáveis.
+   - Exemplo: `reflect thoughts[2]`.
+
+7. **Controle de Fluxo Avançado**
+   - Adicionar `break`, `continue` e `return` dentro de laços e funções.
+   - Implementar `switch ... case` ou alternativa simbólica (ex.: `choose path of` ...).
+
+8. **Compilação para Código Nativo**
+   - Traduzir a AST para C, Java ou Python automaticamente.
+   - Permitir execução do código Lumina sem interpretador Python, gerando binários simples.
+
+9. **Anotações e Metaprogramação**
+   - Criar um sistema de metadados com `@` antes de declarações.
+   - Exemplo: `@pure define func soma(a:int, b:int): int`.
+
+10. **IDE e Ferramentas de Apoio**
+    - Criar syntax highlighting (VSCode extension).
+    - Linter e formatador automático (`lumina fmt`).
+    - CLI para execução: `lumina run arquivo.lumina`.
+
+11. **Modo Interativo (REPL)**
+    - Implementar prompt interativo (`lumina>`).
+    - Permitir testes rápidos e inspeção da tabela de símbolos em tempo real.
+
+12. **Mensagens Amigáveis e Localização**
+    - Traduzir mensagens de erro e `reflect` para português/inglês automaticamente.
+    - Adicionar níveis de severidade (Erro, Aviso, Info).
+
+13. **Compilador Otimizador**
+    - Aplicar *constant folding*, *dead code elimination* e *loop unrolling*.
+    - Mostrar ganhos de performance no log do compilador.
+
+14. **Extensão para IA / Análise de Dados**
+    - Incluir biblioteca padrão `lumina.ai` com funções básicas de álgebra linear e estatística.
+    - Integrar comandos simbólicos, ex.: `reflect insight(clarity)` → simula raciocínio lógico.
+
+Essas ideias podem ser exploradas em próximas versões do compilador,
+expandindo Lumina para um ecossistema completo de linguagem e ferramentas.

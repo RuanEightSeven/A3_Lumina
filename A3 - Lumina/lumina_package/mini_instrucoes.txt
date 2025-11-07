@@ -1,0 +1,9 @@
+Instruções rápidas
+
+- Para testar a gramática: gere o parser com ANTLR e execute-o sobre 'exemplo.lumina'.
+- Crie um visitor Java/Python que percorra a árvore:
+  * Ao entrar em 'decl' registre a variável (nome, tipo, valor inicial) na tabela de símbolos.
+  * Em 'assign' verifique a existência da variável e compatibilidade de tipos.
+  * Em 'reflect', avalie a expressão e escreva a saída (ou gere código correspondente).
+- Trate strings, números e booleanos como valores primitivos.
+- Comentários começam com '#' e são ignorados pelo parser.

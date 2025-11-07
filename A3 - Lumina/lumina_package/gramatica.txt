@@ -1,0 +1,59 @@
+Gramática LL(1) (alto nível) para Lumina
+---------------------------------------
+
+<program> ::= <decl_seq> <stmt_seq>
+
+<decl_seq> ::= <decl> <decl_seq> | ε
+<decl> ::= 'define' <id> ':' <tipo> '=' <expr> ';'
+
+<tipo> ::= 'int' | 'float' | 'text' | 'bool'
+
+<stmt_seq> ::= <stmt> <stmt_seq> | ε
+<stmt> ::= <expr_stmt>
+         | <io_stmt>
+         | <if_stmt>
+         | <for_stmt>
+         | <while_stmt>
+         | <return_stmt>
+
+<expr_stmt> ::= <expr> ';'
+
+<io_stmt> ::= 'reflect' <expr> ';'
+            | 'input' <id> ';'
+
+<if_stmt> ::= 'choose' '(' <expr> ')' 'path' '{' <stmt_seq> '}' <else_block>
+<else_block> ::= 'or' '{' <stmt_seq> '}' | ε
+
+<for_stmt> ::= 'repeat' '(' <decl_or_assign> ';' <expr> ';' <assign> ')' '{' <stmt_seq> '}'
+<decl_or_assign> ::= <decl> | <assign>
+<assign> ::= <id> '=' <expr>
+
+<while_stmt> ::= 'whilethink' '(' <expr> ')' '{' <stmt_seq> '}'
+
+<return_stmt> ::= 'return' <expr> ';'
+
+Expressões (precedência sem recursividade à esquerda):
+
+<expr> ::= <equality>
+
+<equality> ::= <relational> ( ('==' | '!=') <relational> )*
+
+<relational> ::= <add> ( ('<' | '>' | '<=' | '>=') <add> )*
+
+<add> ::= <mul> ( ('+' | '-') <mul> )*
+
+<mul> ::= <unary> ( ('*' | '/') <unary> )*
+
+<unary> ::= ('-' | 'not') <unary> | <primary>
+
+<primary> ::= <NUMBER> | <STRING> | <id> | '(' <expr> ')' | 'true' | 'false'
+
+<id> ::= letra (letra | digito | '_')*
+
+<NUMBER> ::= digito+ ('.' digito+)?
+
+Observações:
+- A gramática evita recursão à esquerda usando formas repetitivas (...)*.
+- Produções vazias aparecem apenas onde indicado (ε) para permitir seqüências opcionais.
+- Para implementar em ANTLR, crie regras léxicas separadas para keywords, IDs, números, strings, comentários e espaços em branco.
+- Semântica a implementar: verificação de tipos, tabela de símbolos, escopo de variáveis, e mensagens de erro claras.

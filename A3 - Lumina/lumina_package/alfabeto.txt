@@ -1,0 +1,44 @@
+Alfabeto da Linguagem Lumina
+---------------------------
+
+Conjunto de símbolos terminais (alfabeto) usados em Lumina.
+
+Letras:
+    a b c ... z A B C ... Z  (letras ASCII básicas)
+
+Dígitos:
+    0 1 2 3 4 5 6 7 8 9
+
+Símbolos especiais:
+    +  -  *  /  =  :  <  >  !  (  )  {  }  ;  ,  "  '
+
+Palavras-reservadas (keywords):
+    define    reflect    input
+    choose    path       or
+    repeat    whilethink
+    return    true       false
+    and       or         not
+
+Operadores:
+    Aritméticos: + - * /
+    Relacionais: < > <= >= == !=
+    Lógicos: and or not
+    Atribuição: =
+    Declaração com tipo: ':'
+
+Delimitadores:
+    ;  ,  ( ) { }
+
+Literais:
+    números inteiros e decimais (ex.: 42, 3.14)
+    strings entre aspas duplas (ex.: "Olá Lumina")
+
+Espaços em branco:
+    espaço, tab, quebra de linha (ignorados fora de strings)
+
+Comentários:
+    # comentário de linha única (vai até o fim da linha)
+
+Observações:
+    - Identificadores (IDs) iniciam com letra ou underscore, seguidos de letras, dígitos ou underscores.
+    - Números decimais são aceitos; ponto '.' separador decimal.
