@@ -1,0 +1,15 @@
+# Erros sintáticos esperados:
+# - falta de ';'
+# - colchetes incorretos
+# - operadores faltando
+
+define num: int = 10
+define wrong: float = 3.5;
+
+choose (num < 5 {
+    reflect "erro de sintaxe";
+}
+
+repeat define i: int = 0; i < num; i = i + 1) {
+    reflect "loop";
+}

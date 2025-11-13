@@ -1,0 +1,15 @@
+# Teste de blocos aninhados
+
+define a: int = 0;
+define limit: int = 3;
+
+choose (limit > 0) path {
+    repeat (define i: int = 0; i < limit; i = i + 1;) {
+        whilethink (i < limit) {
+            reflect "Inner loop i=" + i;
+            i = i + 1;
+        }
+    }
+} or {
+    reflect "Limit menor ou igual a zero";
+}

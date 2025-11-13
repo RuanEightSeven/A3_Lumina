@@ -1,0 +1,23 @@
+# Cálculo de produtividade diária com fatores dinâmicos
+
+define focus: float = 70.0;
+define energy: float = 80.0;
+define distractions: int = 2;
+define productivity: float = 0.0;
+
+reflect "Analisando produtividade diária...";
+
+repeat (define hour: int = 1; hour <= 8; hour = hour + 1;) {
+    focus = focus - (distractions * 1.5);
+    energy = energy - 5.0;
+    productivity = productivity + (focus + energy) / 20;
+
+    choose (focus > 50) path {
+        reflect "Hora " + hour + ": Foco razoável (" + focus + ")";
+    } or {
+        reflect "Hora " + hour + ": Foco baixo, recomendada pausa.";
+    }
+}
+
+reflect "Produtividade total: " + productivity;
+reflect "Distrações médias: " + distractions;

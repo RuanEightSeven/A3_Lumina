@@ -1,0 +1,25 @@
+# Simulação de clareza mental ao longo do dia
+
+define clarity: float = 100.0;
+define fatigue: float = 0.0;
+define focus: float = 75.0;
+define cycle: int = 0;
+
+reflect "=== Iniciando simulação de clareza mental ===";
+
+repeat (define cycle: int = 1; cycle <= 10; cycle = cycle + 1;) {
+    clarity = clarity - 8.5;
+    fatigue = fatigue + 10;
+    focus = focus - fatigue * 0.05;
+
+    choose (clarity > 50 and focus > 40) path {
+        reflect "Ciclo " + cycle + ": Clareza adequada. Foco estável.";
+    } or {
+        reflect "Ciclo " + cycle + ": Clareza comprometida. É hora de pausar.";
+    }
+}
+
+reflect "Clareza final: " + clarity;
+reflect "Fadiga acumulada: " + fatigue;
+reflect "Foco restante: " + focus;
+reflect "=== Fim da simulação ===";

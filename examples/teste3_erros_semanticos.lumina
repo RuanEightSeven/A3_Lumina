@@ -1,0 +1,14 @@
+# Erros semânticos esperados:
+# - uso de variável não declarada
+# - atribuição de tipos incompatíveis
+# - declaração duplicada
+
+define x: int = 10;
+define y: text = "abc";
+define y: float = 5.5;    # duplicada
+
+reflect "Valor de x:" + x;
+
+z = 3;                    # variável não declarada
+x = "texto";              # incompatível com int
+y = y + 2;                # text + int incompatível

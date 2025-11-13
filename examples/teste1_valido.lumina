@@ -1,0 +1,24 @@
+# Programa Lumina válido simples
+
+define thoughts: int = 5;
+define clarity: float = 98.5;
+define idea: text = "Insight";
+
+reflect "Starting mental process...";
+
+choose (clarity > 50) path {
+    reflect "Mind is focused";
+} or {
+    reflect "Mind is hazy";
+}
+
+repeat (define i: int = 0; i < thoughts; i = i + 1;) {
+    reflect "Processing thought " + i;
+}
+
+whilethink (clarity > 0) {
+    clarity = clarity - 5;
+}
+
+input idea;
+reflect "Final idea: " + idea;

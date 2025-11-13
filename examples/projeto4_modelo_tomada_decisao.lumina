@@ -1,0 +1,18 @@
+# Modelo de tomada de decisão baseado em múltiplos fatores
+
+define energy: float = 85.0;
+define risk: float = 30.0;
+define reward: float = 70.0;
+define decision: text = "";
+
+reflect "Calculando cenário de decisão...";
+
+choose ((energy > 60 and risk < 40) or reward > 80) path {
+    decision = "AGIR";
+    reflect "Condições favoráveis: energia e recompensa suficientes.";
+} or {
+    decision = "ESPERAR";
+    reflect "Condições insuficientes: risco alto ou baixa motivação.";
+}
+
+reflect "Decisão final: " + decision;

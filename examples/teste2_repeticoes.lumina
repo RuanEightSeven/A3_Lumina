@@ -1,0 +1,14 @@
+# Teste de laços e operações aritméticas
+
+define counter: int = 0;
+define max: int = 30;
+
+repeat (define i: int = 0; i < max; i = i + 1;) {
+    counter = counter + i * 2;
+    reflect "Counter now: " + counter;
+}
+
+whilethink (counter > 0) {
+    counter = counter - 1;
+    reflect "Decreasing... " + counter;
+}

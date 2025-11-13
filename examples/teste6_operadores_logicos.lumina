@@ -1,0 +1,14 @@
+# Teste de operadores lógicos e relacionais
+
+define temp: float = 36.5;
+define fever: int = 0;
+
+choose ((temp > 37.0 and temp < 39.0) or (not (temp == 36.5))) path {
+    reflect "Temperatura anormal";
+} or {
+    reflect "Tudo normal";
+}
+
+repeat (define i: int = 0; i <= 5; i = i + 1;) {
+    reflect "Iteração " + i;
+}

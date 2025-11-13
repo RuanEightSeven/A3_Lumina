@@ -1,0 +1,18 @@
+# Simulação do processamento e amadurecimento de ideias
+
+define ideas: int = 5;
+define maturity: float = 0.0;
+define i: int = 0;
+
+reflect "Iniciando o processamento de ideias...";
+
+repeat (define i: int = 1; i <= ideas; i = i + 1) {
+    define temp_maturity: float = 0.0;
+    whilethink (temp_maturity < 100) {
+        temp_maturity = temp_maturity + 25;
+        reflect "Ideia " + i + " em amadurecimento (" + temp_maturity + "%)";
+    }
+    maturity = maturity + temp_maturity / ideas;
+}
+
+reflect "Maturidade média final: " + maturity;
