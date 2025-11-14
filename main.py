@@ -1,6 +1,7 @@
 from antlr4 import *
 from output.LuminaLexer import LuminaLexer
 from output.LuminaParser import LuminaParser
+from semantic.LuminaCodeGenVisitor import LuminaCodeGenVisitor
 from semantic import LuminaSemanticVisitor
 from semantic.LuminaErrorListener import LuminaErrorListener
 
@@ -50,6 +51,14 @@ def main():
         print("\n❌ Código não compilado devido a erros semânticos.")
     else:
         print("\n✅ Código compilado com sucesso!")
+
+
+    codegen = LuminaCodeGenVisitor(visitor.symbols)
+    codegen.visit(tree)
+    java_code = codegen.get_code()
+
+    with open("output/LuminaProgram.java", "w", encoding="utf-8") as f:
+        f.write(java_code)
 
 if __name__ == "__main__":
     main()
