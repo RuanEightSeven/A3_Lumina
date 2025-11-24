@@ -1,7 +1,7 @@
-# 📘 **Documentação do Alfabeto e Estruturas da Linguagem Lumina**
+# **Documentação do Alfabeto e Estruturas da Linguagem Lumina**
 
 ---
-# 🌟 A ideia por Trás da Linguagem
+# A ideia por Trás da Linguagem
 
 A Lumina é como uma brincadeira séria — uma linguagem construída como se fosse um mapa da mente humana.  
 Cada comando carrega um pequeno gesto cognitivo: **reflect** é pensar em voz alta, **choose** é tomar decisões internas,  
@@ -17,7 +17,7 @@ Lumina é, no fundo, uma linguagem técnica disfarçada de imaginação estrutur
 É lógica, mas com um toque de poesia.  
 É a mente humana, traduzida em instruções.
 
-# 1️⃣ **Conceito de Alfabeto da Linguagem**
+# **Conceito de Alfabeto da Linguagem**
 
 O **alfabeto de uma linguagem formal** é o conjunto de símbolos terminais que podem aparecer em programas escritos nela.
 
@@ -36,7 +36,7 @@ Cada um desses grupos é descrito e exemplificado abaixo.
 
 ---
 
-# 2️⃣ **Palavras Reservadas**
+# **Palavras Reservadas**
 
 As palavras reservadas **não podem ser usadas como nomes de variáveis**, pois possuem significado sintático próprio.
 
@@ -67,7 +67,7 @@ whilethink (idade > 0) { ... }
 
 ---
 
-# 3️⃣ **Tipos Primitivos**
+# **Tipos Primitivos**
 
 | Tipo Lumina | Significado          |
 | ----------- | -------------------- |
@@ -85,9 +85,9 @@ define fator: float = 2.5;
 
 ---
 
-# 4️⃣ **Operadores**
+# **Operadores**
 
-### 🔹 Aritméticos
+- ### Aritméticos
 
 | Token | Uso           |
 | ----- | ------------- |
@@ -104,7 +104,7 @@ resultado = a + b * 2;
 
 ---
 
-### 🔹 Relacionais
+- ### Relacionais
 
 | Token | Significado    |
 | ----- | -------------- |
@@ -123,7 +123,7 @@ choose (idade >= 18) path { ... }
 
 ---
 
-### 🔹 Lógicos
+- ### Lógicos
 
 | Token | Significado |
 | ----- | ----------- |
@@ -139,7 +139,7 @@ if (a > 5 and b < 10 or not c)
 
 ---
 
-### 🔹 Atribuição
+- ### Atribuição
 
 | Token | Significado |
 | ----- | ----------- |
@@ -153,7 +153,7 @@ x = 3 * 2;
 
 ---
 
-### 🔹 Declaração tipada
+- ### Declaração tipada
 
 | Token | Significado         |
 | ----- | ------------------- |
@@ -167,7 +167,7 @@ define nome: text = "Ana";
 
 ---
 
-# 5️⃣ **Delimitadores**
+# **Delimitadores**
 
 | Token   | Uso                                                     |
 | ------- | ------------------------------------------------------- |
@@ -184,7 +184,7 @@ reflect (a + b); # parênteses opcionais
 
 ---
 
-# 6️⃣ **Identificadores (ID)**
+# **Identificadores (ID)**
 
 Sintaxe:
 
@@ -215,9 +215,9 @@ idadeUsuario
 
 ---
 
-# 7️⃣ **Literais**
+# **Literais**
 
-### 🔹 Números (`NUMBER`)
+- ### Números (`NUMBER`)
 
 ```
 [0-9]+ ('.' [0-9]+)?
@@ -228,7 +228,7 @@ Suportam:
 * inteiros: `42`
 * floats: `3.14`
 
-### 🔹 Strings (`STRING`)
+- ### Strings (`STRING`)
 
 Delimitadas por **aspas duplas** `"..."`
 Podem conter escape:
@@ -240,7 +240,7 @@ Podem conter escape:
 
 ---
 
-# 8️⃣ **Comentários**
+# **Comentários**
 
 ```
 # tudo até o fim da linha
@@ -257,7 +257,7 @@ O compilador **ignora completamente** comentários.
 
 ---
 
-# 9️⃣ **Espaços em branco**
+# **Espaços em branco**
 
 São ignorados (exceto em strings):
 
@@ -267,47 +267,47 @@ espaco, tab, \r, \n
 
 ---
 
-# 🔟 **Resumo do Alfabeto (Terminais)**
+# **Resumo do Alfabeto (Terminais)**
 
-### ✔️ Palavras Reservadas
+### Palavras Reservadas
 
 ```
 define reflect input choose path or and not repeat whilethink return
 true false
 ```
 
-### ✔️ Tipos
+### Tipos
 
 ```
 int float text
 ```
 
-### ✔️ Operadores
+### Operadores
 
 ```
 + - * / = : < > <= >= == !=
 ```
 
-### ✔️ Delimitadores
+### Delimitadores
 
 ```
 ( ) { } ; ,
 ```
 
-### ✔️ Literais
+### Literais
 
 ```
 NUMBER
 STRING
 ```
 
-### ✔️ Identificadores
+### Identificadores
 
 ```
 [a-zA-Z_][a-zA-Z0-9_]*
 ```
 
-### ✔️ Comentários
+### Comentários
 
 ```
 # comentário até a quebra de linha

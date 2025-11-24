@@ -6,14 +6,14 @@ from semantic import LuminaSemanticVisitor
 from semantic.LuminaErrorListener import LuminaErrorListener
 
 def main():
-    # input_stream = FileStream("examples/teste1_valido.lumina", encoding="utf-8")
+    input_stream = FileStream("examples/teste1_valido.lumina", encoding="utf-8")
     # input_stream = FileStream("examples/teste2_repeticoes.lumina", encoding="utf-8")
     # input_stream = FileStream("examples/teste3_erros_semanticos.lumina", encoding="utf-8")
     # input_stream = FileStream("examples/teste4_erros_sintaticos.lumina", encoding="utf-8")
     # input_stream = FileStream("examples/teste5_aninhamentos.lumina", encoding="utf-8")
     # input_stream = FileStream("examples/teste6_operadores_logicos.lumina", encoding="utf-8")
     # input_stream = FileStream("examples/projeto1_simulacao_clareza.lumina", encoding="utf-8")
-    input_stream = FileStream("examples/projeto2_medidor_produtividade.lumina", encoding="utf-8")
+    # input_stream = FileStream("examples/projeto2_medidor_produtividade.lumina", encoding="utf-8")
     # input_stream = FileStream("examples/projeto3_processamento_ideias.lumina", encoding="utf-8")
     # input_stream = FileStream("examples/projeto4_modelo_tomada_decisao.lumina", encoding="utf-8")
 
