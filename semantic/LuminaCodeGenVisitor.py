@@ -1,18 +1,10 @@
-# semantic/LuminaCodeGenVisitor.py
 from antlr4 import ParserRuleContext
 from antlr4.tree.Tree import TerminalNode
 from output.LuminaVisitor import LuminaVisitor
 
 class LuminaCodeGenVisitor(LuminaVisitor):
-    """
-    Gera código Java a partir da AST de Lumina.
-    - Integra com a tabela de símbolos do visitor semântico.
-    - Gera leitura 'input' tipada automaticamente (nextInt, nextDouble, nextLine).
-    - Produz uma classe Java chamada LuminaProgram com método main.
-    """
-
     def __init__(self, symbol_table_stack=None, target="Java"):
-        assert target == "Java", "Atualmente só suportamos Java."
+        assert target == "Java", "Atualmente só convertemos para Java."
         self.target = target
 
         self.symbol_table_stack = symbol_table_stack or [{}]
@@ -22,9 +14,6 @@ class LuminaCodeGenVisitor(LuminaVisitor):
         self.indent_level = 2
         self.needs_scanner = False
 
-    # --------------------------
-    # helpers de geração
-    # --------------------------
     def emit(self, line=""):
         self.lines.append(" " * (self.indent_level * 4) + line)
 
@@ -63,9 +52,6 @@ class LuminaCodeGenVisitor(LuminaVisitor):
             return "String"
         return "Object"
 
-    # --------------------------
-    # VISITORS principais
-    # --------------------------
     def visitProg(self, ctx):
         for s in ctx.stat():
             self.visit(s)
@@ -96,8 +82,6 @@ class LuminaCodeGenVisitor(LuminaVisitor):
     def visitInputStat(self, ctx):
         name = ctx.ID().getText()
         self.needs_scanner = True
-
-        # encontra tipo na tabela de símbolos
         var_type = self.lookup_type(name)
         if var_type == "int":
             method = "__sc.nextInt()"
@@ -110,7 +94,6 @@ class LuminaCodeGenVisitor(LuminaVisitor):
         return None
 
     def lookup_type(self, name):
-        # busca o tipo na pilha de escopos
         for scope in reversed(self.symbol_table_stack):
             if name in scope:
                 return scope[name]
@@ -159,7 +142,6 @@ class LuminaCodeGenVisitor(LuminaVisitor):
         self.emit("}")
         return None
 
-    # inline helpers
     def varDecl_inline(self, ctx):
         name = ctx.ID().getText()
         lum_type = ctx.type_().getText() if ctx.type_() else "int"
@@ -174,9 +156,6 @@ class LuminaCodeGenVisitor(LuminaVisitor):
         expr_code = self.visit(ctx.expr())
         return f"{name} = {expr_code}"
 
-    # --------------------------
-    # EXPRESSÕES
-    # --------------------------
     def visitExpr(self, ctx): return self.visit(ctx.logicOrExpr())
     def visitLogicOrExpr(self, ctx):
         parts = [self.visit(e) for e in ctx.logicAndExpr()]

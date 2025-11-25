@@ -5,9 +5,6 @@ class LuminaSemanticVisitor(LuminaVisitor):
         self.symbols = [{}]
         self.errors = []
 
-    # -----------------------------
-    # utilitários de escopo/tipo
-    # -----------------------------
     def current_scope(self):
         return self.symbols[-1]
 
@@ -60,9 +57,6 @@ class LuminaSemanticVisitor(LuminaVisitor):
     def log_error(self, msg):
         self.errors.append(msg)
 
-    # -----------------------------
-    # entrada principal
-    # -----------------------------
     def visitProg(self, ctx):
         for s in ctx.stat():
             self.visit(s)
@@ -75,11 +69,7 @@ class LuminaSemanticVisitor(LuminaVisitor):
                 print(" -", e)
         return None
 
-    # -----------------------------
-    # declarações / atribuições
-    # -----------------------------
     def visitVarDecl(self, ctx):
-        # varDecl: DEFINE ID COLON type (ASSIGN expr)? SEMI
         name = ctx.ID().getText()
         var_type = ctx.type_().getText() if ctx.type_() else None
         self.declare_variable(name, var_type, ctx)
@@ -91,23 +81,17 @@ class LuminaSemanticVisitor(LuminaVisitor):
         return None
 
     def visitAssign(self, ctx):
-        # assign: ID ASSIGN expr SEMI
         name = ctx.ID().getText()
         var_type = self.resolve_variable(name)
         if var_type is None:
             self.log_error(f"Variável '{name}' usada antes de ser declarada.")
-            # prosseguir com análise assumindo int para minimizar mensagens em cascata
             var_type = "int"
         expr_type = self.visit(ctx.expr())
         if expr_type is not None and not self.is_compatible(var_type, expr_type):
             self.log_error(f"Tipos incompatíveis em atribuição: '{name}' ({var_type}) recebe {expr_type}.")
         return None
 
-    # -----------------------------
-    # reflect / input
-    # -----------------------------
     def visitReflectStat(self, ctx):
-        # reflect aceita qualquer expressão — apenas visitar subexpressões
         self.visit(ctx.expr())
         return None
 
@@ -117,14 +101,10 @@ class LuminaSemanticVisitor(LuminaVisitor):
             self.log_error(f"Variável '{name}' usada no input não foi declarada.")
         return None
 
-    # -----------------------------
-    # estruturas de controle
-    # -----------------------------
     def visitChooseStat(self, ctx):
         cond_type = self.visit(ctx.expr())
         if cond_type and not self.is_numeric(cond_type) and not self.is_textual(cond_type):
             self.log_error("Condição de 'choose' deve ser numérica ou textual (avaliável).")
-        # path block
         self.push_scope()
         self.visit(ctx.block(0))
         self.pop_scope()
@@ -144,7 +124,6 @@ class LuminaSemanticVisitor(LuminaVisitor):
         return None
 
     def visitRepeatStat(self, ctx):
-        # repeat ( varDecl expr ; assign ) block
         self.push_scope()
         if ctx.varDecl():
             self.visit(ctx.varDecl())
@@ -153,14 +132,11 @@ class LuminaSemanticVisitor(LuminaVisitor):
             if cond_type and not self.is_numeric(cond_type):
                 self.log_error("Condição de 'repeat' deve ser numérica.")
         if ctx.assign():
-            # ctx.assign() pode retornar uma lista ou single dependendo do parser; tratar ambos
             try:
-                # se for lista de assigns (p.ex. por alguma ambiguidade), iterar
                 for a in ctx.assign():
                     self.visit(a)
             except TypeError:
                 self.visit(ctx.assign())
-        # corpo
         self.visit(ctx.block())
         self.pop_scope()
         return None
@@ -172,18 +148,6 @@ class LuminaSemanticVisitor(LuminaVisitor):
         self.pop_scope()
         return None
 
-    # -----------------------------
-    # EXPRESSÕES (mapeadas da gramática)
-    # - expr -> logicOrExpr
-    # - logicOrExpr -> logicAndExpr (OR logicAndExpr)*
-    # - logicAndExpr -> equalityExpr (AND equalityExpr)*
-    # - equalityExpr -> relationalExpr ((EQ|NEQ) relationalExpr)*
-    # - relationalExpr -> additiveExpr ((LT|GT|LE|GE) additiveExpr)*
-    # - additiveExpr -> multiplicativeExpr ((PLUS|MINUS) multiplicativeExpr)*
-    # - multiplicativeExpr -> unaryExpr ((STAR|DIV) unaryExpr)*
-    # - unaryExpr -> (NOT|PLUS|MINUS)? primaryExpr
-    # - primaryExpr -> NUMBER | STRING | ID | '(' expr ')'
-    # -----------------------------
     def visitExpr(self, ctx):
         return self.visit(ctx.logicOrExpr())
 
@@ -192,7 +156,6 @@ class LuminaSemanticVisitor(LuminaVisitor):
         types = [self.visit(p) for p in parts]
         if not types:
             return None
-        # operador 'or' produz valor lógico/numérico. retornamos int como protótipo
         return "int" if len(types) > 1 else types[0]
 
     def visitLogicAndExpr(self, ctx):
@@ -207,7 +170,6 @@ class LuminaSemanticVisitor(LuminaVisitor):
         types = [self.visit(p) for p in parts]
         if not types:
             return None
-        # comparações retornam int (falso/verdadeiro)
         return "int" if len(types) > 1 else types[0]
 
     def visitRelationalExpr(self, ctx):
@@ -227,7 +189,6 @@ class LuminaSemanticVisitor(LuminaVisitor):
             if not result or not t:
                 result = self.result_type(result, t)
             else:
-                # se ambos textuais e operador é '+', permitir concatenação (result becomes text)
                 result = self.result_type(result, t)
         return result
 
@@ -242,15 +203,11 @@ class LuminaSemanticVisitor(LuminaVisitor):
         return result
 
     def visitUnaryExpr(self, ctx):
-        # unaryExpr: (NOT | PLUS | MINUS)? primaryExpr
-        # O parser gera um primaryExpr acessível por ctx.primaryExpr()
         if ctx.primaryExpr():
             return self.visit(ctx.primaryExpr())
-        # fallback
         return None
 
     def visitPrimaryExpr(self, ctx):
-        # primaryExpr: NUMBER | STRING | ID | LPAREN expr RPAREN
         if ctx.NUMBER():
             txt = ctx.NUMBER().getText()
             return "float" if "." in txt else "int"
